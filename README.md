@@ -1,6 +1,8 @@
 # knn
 
-A basic operator that finds k-nearest neighbors from a distance matrix.
+A simple brute force k-nearest neighbors implementation for SciDB.
+This operator finds the k nearest neighbors for each row of a full
+distance matrix.
 
 ## Synopsis
 
