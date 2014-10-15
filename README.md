@@ -14,7 +14,7 @@ knn(A,n) returns a 2-d sparse array with schema identical to A whose
 entries contain the rank order of the k smallest values per row, or
 or are empty otherwise. The output martix can be joined directly with
 the input to mask it. Note that the diagonal would normally be filtered
-out of the solution with something like filter(knn(A,n),&lt;&gt;j).
+out of the solution with something like filter(knn(A,n),i&lt;&gt;j).
 
 ## Example
 ```
