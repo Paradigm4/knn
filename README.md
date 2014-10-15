@@ -12,7 +12,7 @@ where:
 
 knn(A,n) returns a 2-d sparse array with schema identical to A whose
 entries contain the rank order of the k smallest values per row, or
-or are empty otherwise. The output martix can be joined directly with
+or are empty otherwise. The output matrix can be joined directly with
 the input to mask it. Note that the diagonal would normally be filtered
 out of the solution with something like filter(knn(A,n),i&lt;&gt;j).
 
@@ -24,7 +24,7 @@ load_library('knn')
 export M="build(<x:double>[i=1:7,7,0,j=1:7,7,0],floor(abs(sin(i-j)*513))%10)" 
 
 Compare the test matrix:   iquery -aq "$M"
-with the output of:        iquery -aq "knn($M, 3)"
+with the output of:        iquery -aq "knn($M, 4)"
 
 Looks like:
 
