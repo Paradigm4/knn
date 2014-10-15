@@ -90,7 +90,7 @@ public:
             double *ans = (double *)malloc(chunkdata.size() * sizeof(double));
             if(!ans) throw SYSTEM_EXCEPTION(SCIDB_SE_OPERATOR, SCIDB_LE_ILLEGAL_OPERATION)
                         << "memory allocation error";
-            rowsort(ans, chunkdata.data(), chunkdata.size(), last_row-start[0]+1, 0);
+            rowsort(ans, chunkdata.data(), chunkdata.size(), last_row-start[0]+1);
 // write the output (has same schema as input)
             shared_ptr<ChunkIterator> outputChunkIter = outputArrayIterator->newChunk(start).getIterator(query, ChunkIterator::SEQUENTIAL_WRITE); // || ChunkIterator::SPARSE_CHUNK);
             size_t j = 0;

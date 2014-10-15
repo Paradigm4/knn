@@ -6,8 +6,6 @@
  *        of a matrix. Same size as ans.
  * size:  The total number of data values.
  * nrows: The number of rows of data, must divide size.
- * zero:  If 1, then leave zeros as is. If zero then replace zeros with
-          MAXDOUBLE (forcing them to be last).
  *
  * Returns 0 on success, -1 on error.
  *
@@ -17,7 +15,7 @@
  * 4.4  0.0  0.4  0.5  1.0
  * 1.1  1.2  0.0  1.3  1.4
  *
- * Corresponding output for zero=1:
+ * Corresponding output:
  *
  * 1.0  4.0  3.0  5.0  2.0
  * 5.0  1.0  2.0  3.0  4.0
@@ -32,7 +30,7 @@
 #include "merge.h"
 
 int
-rowsort(double *ans, double *data, size_t size, size_t nrows, int zero)
+rowsort(double *ans, double *data, size_t size, size_t nrows)
 {
   size_t j, l;
   int k = 0;
@@ -41,11 +39,7 @@ rowsort(double *ans, double *data, size_t size, size_t nrows, int zero)
   if(dim>MAXDOUBLE) return -1;  // problem too large
   size_t *i = (size_t *)malloc(dim * sizeof(size_t));
   if(!i) return -1;
-  if(zero) memcpy(ans, data, size*sizeof(double));
-  else
-  {
-    for(j=0;j<size;++j) ans[j] = (data[j]==0) ? MAXDOUBLE : data[j];
-  }
+  memcpy(ans, data, size*sizeof(double));
   for(j=0;j<nrows;++j)
   {
     k = mergesort (&ans[j*dim], dim, i);
