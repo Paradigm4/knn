@@ -92,15 +92,15 @@ public:
                         << "memory allocation error";
             rowsort(ans, chunkdata.data(), chunkdata.size(), last_row-start[0]+1);
 // write the output (has same schema as input)
-            shared_ptr<ChunkIterator> outputChunkIter = outputArrayIterator->newChunk(start).getIterator(query, ChunkIterator::SEQUENTIAL_WRITE); // || ChunkIterator::SPARSE_CHUNK);
+            shared_ptr<ChunkIterator> outputChunkIter = outputArrayIterator->newChunk(start).getIterator(query, ChunkIterator::SEQUENTIAL_WRITE);
             size_t j = 0;
+            Value val;
             for(;;)
             {
                 if(!outputChunkIter->end())
                 {
                     if(&ans[j]!=0)
                     {
-                      Value val(TypeLibrary::getType(TID_DOUBLE));
                       val.setData(&ans[j],sizeof(double));
                       if(ans[j] < n) outputChunkIter->writeItem(val);
                     }

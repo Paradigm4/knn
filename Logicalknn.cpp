@@ -61,7 +61,7 @@ public:
     ArrayDesc inferSchema(vector< ArrayDesc> schemas, shared_ptr< Query> query)
     {
         ArrayDesc const& inputSchema = schemas[0];
-        Attributes outputAttributes(inputSchema.getAttributes(true));
+        Attributes outputAttributes(inputSchema.getAttributes());
         Dimensions outputDimensions(inputSchema.getDimensions());
         return ArrayDesc(inputSchema.getName(), outputAttributes, outputDimensions);
     }
