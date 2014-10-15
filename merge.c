@@ -113,6 +113,7 @@ mergesort (double *d, size_t n, size_t * index)
       if (index)
 	index[j] = a[j].i;
     }
+  free (a);
   return 0;
 }
 
