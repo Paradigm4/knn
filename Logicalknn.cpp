@@ -1,20 +1,31 @@
 /**
  * @file Logicalknn.cpp
  *
- * @brief The operator: knn.
+ * @brief Brute force k nearest neighbors.
  *
- * @par Synopsis: knn(array, val).
+ * @par Synopsis: knn(A, k).
  *  
  * @par Summary:
- *   <br>
+ * Simple brute force k nearest neighbor enumeration for a full distance
+ * matrix. When used without a generic matrix input, it simply identifies
+ * the k smallest values per row.
+ * <br>
  *
  * @par Input:
+ * A is a 2-d full distance matrix with one double precision-valued attribute
+ * chunked only along rows k number of nearest neighbors to identify
+ * <br>
  *
  * @par Output array:
+ * Has same schema as A, but is sparse with the k nearest neighbors
+ * enumerated.
+ * <br>
  *
  * @par Examples:
+ * See help('knn')
+ * <br>
  *
- * @author some dudes.
+ * @author B. W. Lewis <blewis@paradigm4.com>
  */
 
 #include "query/Operator.h"
@@ -60,10 +71,16 @@ public:
  */
     ArrayDesc inferSchema(vector< ArrayDesc> schemas, shared_ptr< Query> query)
     {
-        ArrayDesc const& inputSchema = schemas[0];
-        Attributes outputAttributes(inputSchema.getAttributes());
-        Dimensions outputDimensions(inputSchema.getDimensions());
-        return ArrayDesc(inputSchema.getName(), outputAttributes, outputDimensions);
+        ArrayDesc const& matrix = schemas[0];
+        if(matrix.getAttributes(true)[0].getType() != TID_DOUBLE)
+           throw SYSTEM_EXCEPTION(SCIDB_SE_INTERNAL, SCIDB_LE_ILLEGAL_OPERATION) <<  "knn requires a single double precision-valued attribute";
+        if(matrix.getDimensions().size() !=2 )
+           throw SYSTEM_EXCEPTION(SCIDB_SE_INTERNAL, SCIDB_LE_ILLEGAL_OPERATION) <<  "knn requires a matrix input";
+        if (matrix.getDimensions()[1].getChunkInterval() != static_cast<int64_t>(matrix.getDimensions()[1].getLength()))
+            throw SYSTEM_EXCEPTION(SCIDB_SE_INTERNAL, SCIDB_LE_ILLEGAL_OPERATION) << "knn does not accept column partitioning of the input matrix, use repart first";
+        Attributes outputAttributes(matrix.getAttributes());
+        Dimensions outputDimensions(matrix.getDimensions());
+        return ArrayDesc(matrix.getName(), outputAttributes, outputDimensions);
     }
 };
 

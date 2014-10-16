@@ -4,12 +4,15 @@ A simple brute force k-nearest neighbors implementation for SciDB.
 This operator finds the k nearest neighbors for each row of a full
 distance matrix.
 
+When used with a generic input matrix (not a distance matrix),
+the operator simply identifies the k smallest values per row.
+
 ## Synopsis
 
 Usage: knn(A, k)
 where:
 
-* A is a 2-d full distance matrix with one attribute chunked only along rows,
+* A is a 2-d full distance matrix with one double precision-valued attribute chunked only along rows,
 * k is the number of nearest neighbors to identify per row.  (If n is negative identify the -n furthest neighbors instead.)
 
 knn(A,n) returns a 2-d sparse array with schema identical to A whose
