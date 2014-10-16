@@ -13,7 +13,7 @@ Usage: knn(A, k)
 where:
 
 * A is a 2-d full distance matrix with one double precision-valued attribute chunked only along rows,
-* k is the number of nearest neighbors to identify per row.  (If n is negative identify the -n furthest neighbors instead.)
+* k is the number of nearest neighbors to identify per row.
 
 knn(A,n) returns a 2-d sparse array with schema identical to A whose
 entries contain the rank order of the k smallest values per row, or
