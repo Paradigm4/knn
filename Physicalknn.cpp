@@ -107,7 +107,7 @@ public:
             }
             free(ans);
             outputChunkIter->flush();
-            if(outputChunkIter) outputChunkIter->reset();
+            if(outputChunkIter) outputChunkIter->restart();
 // Advance the array iterators in lock step
             ++(*arrayIter);
             ++(*outputArrayIterator);
