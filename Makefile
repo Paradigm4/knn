@@ -1,4 +1,4 @@
-ifeq ($(SCIDB),) 
+ifeq ($(SCIDB),)
   X := $(shell which scidb 2>/dev/null)
   ifneq ($(X),)
     X := $(shell dirname ${X})
@@ -25,7 +25,9 @@ CFLAGS = -pedantic -W -Wextra -Wall -Wno-variadic-macros -Wno-strict-aliasing \
          -Wno-long-long -Wno-unused-parameter -fPIC -D_STDC_FORMAT_MACROS \
          -Wno-system-headers -isystem  $(OPTIMIZED) -D_STDC_LIMIT_MACROS -std=c99
 CCFLAGS = -pedantic -W -Wextra -Wall -Wno-variadic-macros -Wno-strict-aliasing \
-         -Wno-long-long -Wno-unused-parameter -fPIC $(OPTIMIZED) 
+         -Wno-long-long -Wno-unused-parameter -fPIC -D_STDC_FORMAT_MACROS \
+         -Wno-system-headers -isystem  $(OPTIMIZED) -D_STDC_LIMIT_MACROS \
+         -std=c++11 -DCPP11
 INC = -I. -DPROJECT_ROOT="\"$(SCIDB)\"" -I"$(SCIDB_3RDPARTY)/boost/include/" \
       -I"$(SCIDB)/include" -I./extern
 
@@ -35,6 +37,9 @@ LIBS = -shared -Wl,-soname,libknn.so -ldl -L. \
 
 SRCS = Logicalknn.cpp \
        Physicalknn.cpp
+
+CC := "/usr/bin/gcc-4.9"
+CXX := "/usr/bin/g++-4.9"
 
 all: libknn.so
 
