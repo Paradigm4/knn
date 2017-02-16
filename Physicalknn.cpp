@@ -2,8 +2,8 @@
  *    _____      _ ____  ____
  *   / ___/_____(_) __ \/ __ )
  *   \__ \/ ___/ / / / / __  |
- *  ___/ / /__/ / /_/ / /_/ / 
- * /____/\___/_/_____/_____/  
+ *  ___/ / /__/ / /_/ / /_/ /
+ * /____/\___/_/_____/_____/
  *
  *
  * BEGIN_COPYRIGHT
@@ -28,6 +28,8 @@
 #include "query/Operator.h"
 #include "rowsort.h"
 
+using namespace std;
+
 namespace scidb
 {
 
@@ -40,12 +42,6 @@ public:
                 ArrayDesc const& schema):
         PhysicalOperator(logicalName, physicalName, parameters, schema)
     {}
-
-    virtual ArrayDistribution getOutputDistribution(vector<ArrayDistribution> const& inputDistributions,
-                                                    vector<ArrayDesc> const& inputSchemas) const
-    {
-       return inputDistributions[0];
-    }
 
     /**
       * [Optimizer API] Determine if operator changes result chunk distribution.
